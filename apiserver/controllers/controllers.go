@@ -136,7 +136,9 @@ func (a *APIController) handleWorkflowJobEvent(ctx context.Context, w http.Respo
 		"",     // label: reason
 	).Inc()
 }
-
+func (a *APIController) HealthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
 func (a *APIController) WebhookHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 

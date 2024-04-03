@@ -103,7 +103,7 @@ func requestLogger(h http.Handler) http.Handler {
 func NewAPIRouter(han *controllers.APIController, authMiddleware, initMiddleware, instanceMiddleware auth.Middleware, manageWebhooks bool) *mux.Router {
 	router := mux.NewRouter()
 	router.Use(requestLogger)
-
+	router.Handle("/health", http.HandlerFunc(han.HealthCheckHandler)).Methods("GET", "OPTIONS")
 	// Handles github webhooks
 	webhookRouter := router.PathPrefix("/webhooks").Subrouter()
 	webhookRouter.Handle("/", http.HandlerFunc(han.WebhookHandler))
