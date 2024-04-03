@@ -90,8 +90,8 @@ type Repository struct {
 	Base
 
 	CredentialsName  string
-	Owner            string `gorm:"index:idx_owner_nocase,unique,collate:nocase"`
-	Name             string `gorm:"index:idx_owner_nocase,unique,collate:nocase"`
+	Owner            string `gorm:"index:idx_owner_nocase,unique"`
+	Name             string `gorm:"index:idx_owner_nocase,unique"`
 	WebhookSecret    []byte
 	Pools            []Pool                  `gorm:"foreignKey:RepoID"`
 	Jobs             []WorkflowJob           `gorm:"foreignKey:RepoID;constraint:OnDelete:SET NULL"`
@@ -102,7 +102,7 @@ type Organization struct {
 	Base
 
 	CredentialsName  string
-	Name             string `gorm:"index:idx_org_name_nocase,collate:nocase"`
+	Name             string `gorm:"index:idx_org_name_nocase"`
 	WebhookSecret    []byte
 	Pools            []Pool                  `gorm:"foreignKey:OrgID"`
 	Jobs             []WorkflowJob           `gorm:"foreignKey:OrgID;constraint:OnDelete:SET NULL"`
@@ -113,7 +113,7 @@ type Enterprise struct {
 	Base
 
 	CredentialsName  string
-	Name             string `gorm:"index:idx_ent_name_nocase,collate:nocase"`
+	Name             string `gorm:"index:idx_ent_name_nocase"`
 	WebhookSecret    []byte
 	Pools            []Pool                  `gorm:"foreignKey:EnterpriseID"`
 	Jobs             []WorkflowJob           `gorm:"foreignKey:EnterpriseID;constraint:OnDelete:SET NULL"`
@@ -144,8 +144,8 @@ type InstanceStatusUpdate struct {
 type Instance struct {
 	Base
 
-	ProviderID        *string `gorm:"uniqueIndex"`
-	Name              string  `gorm:"uniqueIndex"`
+	ProviderID        *string `gorm:"uniqueIndex,size:256"`
+	Name              string  `gorm:"uniqueIndex,size:256"`
 	AgentID           int64
 	OSType            commonParams.OSType
 	OSArch            commonParams.OSArch
@@ -174,7 +174,7 @@ type Instance struct {
 type User struct {
 	Base
 
-	Username string `gorm:"uniqueIndex;varchar(64)"`
+	Username string `gorm:"uniqueIndex;varchar(64);size:64"`
 	FullName string `gorm:"type:varchar(254)"`
 	Email    string `gorm:"type:varchar(254);unique;index:idx_email"`
 	Password string `gorm:"type:varchar(60)"`
