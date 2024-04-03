@@ -136,7 +136,7 @@ func (s *sqlDatabase) UpdateEnterprise(ctx context.Context, enterpriseID string,
 func (s *sqlDatabase) getEnterprise(_ context.Context, name string) (Enterprise, error) {
 	var enterprise Enterprise
 
-	q := s.conn.Where("name = ? COLLATE NOCASE", name)
+	q := s.conn.Where("name = ? ", name)
 	q = q.First(&enterprise)
 	if q.Error != nil {
 		if errors.Is(q.Error, gorm.ErrRecordNotFound) {

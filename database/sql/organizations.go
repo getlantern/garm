@@ -177,7 +177,7 @@ func (s *sqlDatabase) getOrgByID(_ context.Context, id string, preload ...string
 func (s *sqlDatabase) getOrg(_ context.Context, name string) (Organization, error) {
 	var org Organization
 
-	q := s.conn.Where("name = ? COLLATE NOCASE", name)
+	q := s.conn.Where("name = ?", name)
 	q = q.First(&org)
 	if q.Error != nil {
 		if errors.Is(q.Error, gorm.ErrRecordNotFound) {

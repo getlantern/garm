@@ -244,7 +244,7 @@ func (s *EnterpriseTestSuite) TestGetEnterpriseNotFound() {
 
 func (s *EnterpriseTestSuite) TestGetEnterpriseDBDecryptingErr() {
 	s.Fixtures.SQLMock.
-		ExpectQuery(regexp.QuoteMeta("SELECT * FROM `enterprises` WHERE name = ? COLLATE NOCASE AND `enterprises`.`deleted_at` IS NULL ORDER BY `enterprises`.`id` LIMIT 1")).
+		ExpectQuery(regexp.QuoteMeta("SELECT * FROM `enterprises` WHERE name = ? AND `enterprises`.`deleted_at` IS NULL ORDER BY `enterprises`.`id` LIMIT 1")).
 		WithArgs(s.Fixtures.Enterprises[0].Name).
 		WillReturnRows(sqlmock.NewRows([]string{"name"}).AddRow(s.Fixtures.Enterprises[0].Name))
 

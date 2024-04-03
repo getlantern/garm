@@ -153,7 +153,7 @@ func (s *sqlDatabase) GetRepositoryByID(ctx context.Context, repoID string) (par
 func (s *sqlDatabase) getRepo(_ context.Context, owner, name string) (Repository, error) {
 	var repo Repository
 
-	q := s.conn.Where("name = ? COLLATE NOCASE and owner = ? COLLATE NOCASE", name, owner).
+	q := s.conn.Where("name = ?  and owner = ? ", name, owner).
 		First(&repo)
 
 	q = q.First(&repo)
