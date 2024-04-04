@@ -471,7 +471,8 @@ type Database struct {
 	// we move to something like vault or barbican for secrets storage.
 	// Don't lose or change this. It will invalidate all encrypted data
 	// in the DB. This field must be set and must be exactly 32 characters.
-	Passphrase string `toml:"passphrase"`
+	Passphrase    string `toml:"passphrase"`
+	SkipMigration bool   `toml:"skip_migration" json:"skip-migration"`
 }
 
 // GormParams returns the database type and connection URI

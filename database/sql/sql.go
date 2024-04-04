@@ -69,8 +69,13 @@ func NewSQLDatabase(ctx context.Context, cfg config.Database) (common.Store, err
 		cfg:  cfg,
 	}
 
-	if err := db.migrateDB(); err != nil {
-		return nil, errors.Wrap(err, "migrating database")
+	if !cfg.SkipMigration {
+		slog.Debug("migrating database")
+		if err := db.migrateDB(); err != nil {
+			return nil, errors.Wrap(err, "migrating database")
+		}
+	} else {
+		slog.Debug("skipping database migration")
 	}
 	return db, nil
 }
