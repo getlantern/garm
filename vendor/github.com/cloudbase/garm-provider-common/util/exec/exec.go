@@ -17,7 +17,6 @@ package exec
 import (
 	"bytes"
 	"context"
-	"log"
 	"os/exec"
 
 	"github.com/pkg/errors"
@@ -31,7 +30,7 @@ func Exec(ctx context.Context, providerBin string, stdinData []byte, environ []s
 	c.Stdin = bytes.NewBuffer(stdinData)
 	c.Stdout = stdout
 	c.Stderr = stderr
-	log.Printf("Running command: %s with env %v data %v", c.String(), c.Env, string(stdinData))
+
 	if err := c.Run(); err != nil {
 		return nil, errors.Wrapf(err, "provider binary failed with stdout: %s; stderr: %s", stdout.String(), stderr.String())
 	}
